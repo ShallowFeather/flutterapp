@@ -2,37 +2,45 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 
-
 class BackChart extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
-    return Column(
-      children: <Widget>[
-        Container(
-          height: size.height * 0.4,
-          child: Stack(
-            children: <Widget>[
-              Positioned(
-                child: Chart(),
-              ),
-              Container(
+    return Column(children: <Widget>[
+      Container(
+        height: size.height * 0.4,
+        child: Stack(
+          children: <Widget>[
+            Positioned(
+              child: Chart(),
+            ),
+            Container(
                 decoration: const BoxDecoration(
                     color: Colors.black,
                     borderRadius: BorderRadius.only(
                       bottomLeft: Radius.circular(72),
                       bottomRight: Radius.circular(72),
-                    )
-                )
-              ),
-              Positioned(
-                child: Chart(),
-              ),
-            ],
-          ),
-        )
-      ]
-    );
+                    ))),
+            Container(
+              alignment: Alignment.center,
+              width: 500,
+              height: 225,
+              child: Chart(),
+            ),
+            Positioned(
+                bottom: 10,
+                right: 0,
+                left: 0,
+                child: IconButton(
+                  padding: EdgeInsets.zero,
+                  onPressed: () {},
+                  icon: Icon(Icons.equalizer_outlined),
+                  color: Colors.white,
+                ))
+          ],
+        ),
+      )
+    ]);
   }
 }
 
@@ -53,22 +61,41 @@ class _Chart extends State<Chart> {
   @override
   Widget build(BuildContext context) {
     return Container(
-        width: ,
         child: SafeArea(
             child: Scaffold(
-              backgroundColor: Colors.transparent,
-              body: SfCircularChart(
-                legend: Legend(isVisible: true, backgroundColor: Colors.white),
-                series: <CircularSeries>[
-                  PieSeries<TotalData, String>(
-                    dataSource: _chartData,
-                    xValueMapper: (TotalData data, _) => data.continent,
-                    yValueMapper: (TotalData data, _) => data.cost,
-                  )
-                ],backgroundColor: Colors.transparent,),
+      backgroundColor: Colors.transparent,
+      body: SfCircularChart(
+          annotations: <CircularChartAnnotation>[
+            CircularChartAnnotation(
+              widget: Container(
+                color: Colors.transparent,
+                child: PhysicalModel(
+                  color: Colors.transparent,
+                  child: Text(
+                    '20990',
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 25,
+                    ),
+                  ),
+                ),
+              ),
             )
-          )
-    );
+          ],
+          legend: Legend(
+              isVisible: true,
+              backgroundColor: Colors.transparent,
+              textStyle: TextStyle(color: Colors.white)),
+          series: <CircularSeries>[
+            DoughnutSeries<TotalData, String>(
+              dataSource: _chartData,
+              xValueMapper: (TotalData data, _) => data.continent,
+              yValueMapper: (TotalData data, _) => data.cost,
+              dataLabelSettings: DataLabelSettings(
+                  isVisible: true, textStyle: TextStyle(color: Colors.white)),
+            )
+          ]),
+    )));
   }
 
   List<TotalData> getChartData() {
@@ -86,6 +113,7 @@ class _Chart extends State<Chart> {
 
 class TotalData {
   TotalData(this.continent, this.cost);
+
   final String continent;
   final int cost;
 }
