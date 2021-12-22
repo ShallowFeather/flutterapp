@@ -12,12 +12,13 @@ class _LoginPage extends State<LoginPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      appBar: AppBar(title: Text("Login Page"),),
       body: SingleChildScrollView(
         child: Column(
           children: <Widget>[
             Padding(
-              padding: EdgeInsets.symmetric(horizontal: 15),
+              padding: const EdgeInsets.only(
+                  left: 15.0, right: 15.0, top: 80, bottom: 0
+              ),
               child: TextField(
                 decoration: InputDecoration(
                   border: OutlineInputBorder(),
@@ -27,7 +28,7 @@ class _LoginPage extends State<LoginPage> {
             ),
             Padding(
               padding: const EdgeInsets.only(
-         ekotlinasdsads         left: 15.0, right: 15.0, top: 15, bottom: 0
+                  left: 15.0, right: 15.0, top: 15, bottom: 0
               ),
               child: TextField(
                 obscureText: true,
