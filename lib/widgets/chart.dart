@@ -29,14 +29,34 @@ class BackChart extends StatelessWidget {
             ),
             Positioned(
                 bottom: 10,
-                right: 0,
-                left: 0,
-                child: IconButton(
-                  padding: EdgeInsets.zero,
-                  onPressed: () {},
-                  icon: Icon(Icons.equalizer_outlined),
-                  color: Colors.white,
-                ))
+                right: 75,
+                left: 75,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+
+                  children: <Widget>[
+                    IconButton(
+                      onPressed: () {},
+                      icon: Icon(Icons.calendar_today),
+                      color: Colors.white,
+                    ),
+                    Text(
+                      "現存餘額: 1500",
+                      style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 20,
+                      ),
+                    ),
+                    IconButton(
+                      alignment: Alignment.centerRight,
+                      padding: EdgeInsets.zero,
+                      onPressed: () {},
+                      icon: Icon(Icons.apps),
+                      color: Colors.white,
+                    )
+                  ]
+                )
+            )
           ],
         ),
       )

@@ -1,7 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:count/widgets/chart.dart';
-import 'package:count/widgets/appbar.dart';
+import 'package:count/widgets/List.dart';
+import 'package:count/widgets/AddData.dart';
+
 
 class MainPage extends StatelessWidget {
   final _scaffoldKey = GlobalKey<ScaffoldState>();
@@ -10,10 +12,11 @@ class MainPage extends StatelessWidget {
     return Scaffold(
       backgroundColor: Colors.white,
       key: _scaffoldKey,
-      appBar: TopAppbar(),
+      appBar: TopAppbar(context),
       body: Column(
         children: [
-            BackChart(),
+          BackChart(),
+          //LastBuyList(),
         ]
       ),
       drawer: Drawer(
@@ -29,10 +32,10 @@ class MainPage extends StatelessWidget {
     );
   }
 
-  AppBar TopAppbar() {
+  AppBar TopAppbar(BuildContext context) {
     return AppBar(
       centerTitle: true,
-      title: Text("現存餘額: 1500"),
+      title: Text("本月收支"),
       backgroundColor: Colors.black,
       elevation: 0,
       leading: IconButton(onPressed: () =>
@@ -45,7 +48,12 @@ class MainPage extends StatelessWidget {
         Padding(
             padding: EdgeInsets.only(right: 0.0),
             child: IconButton(
-              onPressed: () {},
+              onPressed: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => AddDataPage()),
+                );
+              },
               icon: Icon(Icons.add_box),
               color: Colors.white,
               iconSize: 35,
