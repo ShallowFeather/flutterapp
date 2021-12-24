@@ -1,11 +1,12 @@
-class Goods {
+class LastGoods {
   final int id;
   final String name;
   final String type;
   final int cost;
   final String date;
   final String other;
-  Goods({
+
+  LastGoods({
     required this.id,
     required this.name,
     required this.type,

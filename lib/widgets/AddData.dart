@@ -106,6 +106,10 @@ class Body extends State<body> {
     } else {
       res = int.parse(total + Val).toString();
     }
+    if(total.length > 10 || res.length > 10) {
+      total = "";
+      res = "";
+    }
     setState(() {
       total = res;
     });
@@ -263,3 +267,31 @@ class NumberButtom extends StatelessWidget {
     );
   }
 }
+/*
+class TypeList extends StatefulWidget {
+  @override
+  State<TypeList> createState() => _TypeList();
+}
+
+class _TypeList extends State<TypeList> {
+  List<DropdownMenuItem<String>> sortItems = [];
+  String _selectedSort = '排序';
+
+  sortItems.add(DropdownMenuItem(value: '排序', child: Text('排序')));
+  sortItems.add(DropdownMenuItem(value: '价格降序', child: Text('价格降序')));
+  sortItems.add(DropdownMenuItem(value: '价格升序', child: Text('价格升序')));
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(body: getList());
+  }
+
+  getList() {
+    return DropdownButton(
+      value: _selectedSort,
+      items: sortItems,
+      onChanged: changedSort,
+    );
+  }
+}
+*/
