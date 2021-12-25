@@ -2,18 +2,50 @@ import 'dart:async';
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:flutter/widgets.dart';
+import 'package:count/data/GoodsClass.dart';
 
-class AllData {
+class UseDatabase {
+  static final UseDatabase instance = UseDatabase._init();
+  static Database? _database;
+  UseDatabase._init();
+  Future<Database> get database async {
+    if (_database != null) return _database!;
+    _database = await _initDB('owo.db');
+    return _database!;
+  }
+  Future<Database> _initDB(String filePath) async {
+    final dbPath = await getDatabasesPath();
+    final path = join(dbPath, filePath);
+    return await openDatabase(path, version: 1, onCreate: _createDB);
+  }
+  Future _createDB(Database db, int version) async {
+    final idType = 'INTEGER PRIMARY KEY AUTOINCREMENT';
+    final textType = 'TEXT NOT NULL';
+    final integerType = 'INTEGER NOT NULL';
+    await db.execute('''
+      CREATE TABLE item ( 
+        ID $idType,
+        Name　$textType
+        Type $textType,
+        Cost $integerType,
+        Other $textType,
+        Date $textType,
+      )
+      '''
+    );
+  }
+
+  Future<LastGoods> create(LastGoods Data) async {
+    final db = await instance.database;
+    final id = await db.insert("item", Data.toMap());
+    return Data.copy(id: id);
+  }
+
+  Future<List<LastGoods>> readAllitems() async {
+    final db = await instance.database;
+    final orderBy = 'id';
+    final result = await db.query("item", orderBy: orderBy);
+    return result.map((json) => LastGoods.formMap(json)).toList();
+  }
 
 }
-/*
-"""
-          CREATE TABLE items(
-            id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
-            name TEXT,
-            type TEXT,
-            cost INTEGER,
-            other TEXT,
-          )
-      """
-*/

@@ -1,5 +1,9 @@
+import 'package:count/data/LoadData.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:count/data/GoodsClass.dart'
+
+String LastData = "";
 
 class AddDataPage extends StatelessWidget {
   final _scaffoldKey = GlobalKey<ScaffoldState>();
@@ -32,6 +36,7 @@ class AddDataPage extends StatelessWidget {
             padding: EdgeInsets.only(right: 0.0),
             child: IconButton(
               onPressed: () {
+                Database().AddData();
                 Navigator.pop(context);
               },
               icon: Icon(Icons.check_box),
@@ -112,6 +117,7 @@ class Body extends State<body> {
     }
     setState(() {
       total = res;
+      LastData = total;
     });
   }
 
