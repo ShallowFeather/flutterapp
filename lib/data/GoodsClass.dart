@@ -1,3 +1,16 @@
+
+class GoodsField {
+  static final List<String> values = [
+    id, name, type, cost, date, other,
+  ];
+  static final String id = "_id";
+  static final String name = "name";
+  static final String type = "type";
+  static final String cost = "_ost";
+  static final String date = "date";
+  static final String other = "other";
+}
+
 class LastGoods {
   final int? id;
   final String name;
@@ -5,7 +18,7 @@ class LastGoods {
   final int cost;
   final DateTime date;
   final String other;
-  LastGoods({
+  const LastGoods({
     this.id,
     required this.name,
     required this.type,
@@ -28,7 +41,7 @@ class LastGoods {
       'name': name,
       'type': type,
       'cost': cost,
-      'date': date,
+      'date': date.toIso8601String(),
       'other': other,
     };
   }
@@ -38,7 +51,7 @@ class LastGoods {
     String? name,
     String? type,
     int? cost,
-    String? date,
+    DateTime? date,
     String? other,
   }) =>
       LastGoods(

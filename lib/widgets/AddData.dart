@@ -1,10 +1,11 @@
 import 'package:count/data/LoadData.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:count/data/GoodsClass.dart'
+import 'package:count/data/GoodsClass.dart';
+import 'package:sqflite/sqflite.dart';
 
 String LastData = "";
-
+late LastGoods Goods;
 class AddDataPage extends StatelessWidget {
   final _scaffoldKey = GlobalKey<ScaffoldState>();
 
@@ -35,8 +36,8 @@ class AddDataPage extends StatelessWidget {
         Padding(
             padding: EdgeInsets.only(right: 0.0),
             child: IconButton(
-              onPressed: () {
-                Database().AddData();
+              onPressed: () async {
+                await UseDatabase.instance.create(Goods);
                 Navigator.pop(context);
               },
               icon: Icon(Icons.check_box),
@@ -117,6 +118,7 @@ class Body extends State<body> {
     }
     setState(() {
       total = res;
+      Goods.cost = int.parse(total);
       LastData = total;
     });
   }
