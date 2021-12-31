@@ -5,7 +5,11 @@ import 'package:count/data/GoodsClass.dart';
 import 'package:sqflite/sqflite.dart';
 
 String LastData = "";
-late LastGoods Goods;
+TextEditingController namecontroller = new TextEditingController();
+TextEditingController newtypecontroller = new TextEditingController();
+TextEditingController othercontroller = new TextEditingController();
+
+
 class AddDataPage extends StatelessWidget {
   final _scaffoldKey = GlobalKey<ScaffoldState>();
 
@@ -37,7 +41,15 @@ class AddDataPage extends StatelessWidget {
             padding: EdgeInsets.only(right: 0.0),
             child: IconButton(
               onPressed: () async {
-                await UseDatabase.instance.create(Goods);
+                DateTime now = new DateTime.now();
+                LastGoods send = LastGoods(
+                  name: namecontroller.text.toString(),
+                  type: newtypecontroller.text.toString(),
+                  cost: int.parse(LastData),
+                  other: othercontroller.text.toString(),
+                  date: now,
+                );
+                await UseDatabase.instance.create(send);
                 Navigator.pop(context);
               },
               icon: Icon(Icons.check_box),
@@ -56,7 +68,6 @@ class body extends StatefulWidget {
 }
 
 class Body extends State<body> {
-  final TextEditingController _controller = new TextEditingController();
   String history = '';
   int firstNum = 0, secondNum = 0;
   String res = '';
@@ -118,7 +129,6 @@ class Body extends State<body> {
     }
     setState(() {
       total = res;
-      Goods.cost = int.parse(total);
       LastData = total;
     });
   }
@@ -148,6 +158,7 @@ class Body extends State<body> {
           padding: const EdgeInsets.only(
               left: 15.0, right: 15.0, top: 10, bottom: 0),
           child: TextField(
+            controller: namecontroller,
             decoration: InputDecoration(
               border: OutlineInputBorder(),
               labelText: "名稱",
@@ -158,6 +169,7 @@ class Body extends State<body> {
           padding:
               const EdgeInsets.only(left: 15.0, right: 15.0, top: 5, bottom: 0),
           child: TextField(
+            controller: othercontroller,
             decoration: InputDecoration(
               border: OutlineInputBorder(),
               labelText: "備註",
@@ -178,6 +190,7 @@ class Body extends State<body> {
           padding:
               const EdgeInsets.only(left: 15.0, right: 15.0, top: 5, bottom: 0),
           child: TextField(
+            controller: newtypecontroller,
             decoration: InputDecoration(
               border: OutlineInputBorder(),
               labelText: "新增類別",

@@ -3,10 +3,10 @@ class GoodsField {
   static final List<String> values = [
     id, name, type, cost, date, other,
   ];
-  static final String id = "_id";
+  static final String id = "id";
   static final String name = "name";
   static final String type = "type";
-  static final String cost = "_ost";
+  static final String cost = "cost";
   static final String date = "date";
   static final String other = "other";
 }

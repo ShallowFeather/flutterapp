@@ -18,21 +18,21 @@ class UseDatabase {
     final path = join(dbPath, filePath);
     return await openDatabase(path, version: 1, onCreate: _createDB);
   }
+
   Future _createDB(Database db, int version) async {
-    final idType = 'INTEGER PRIMARY KEY AUTOINCREMENT';
-    final textType = 'TEXT NOT NULL';
-    final integerType = 'INTEGER NOT NULL';
+    const idType = 'INTEGER PRIMARY KEY AUTOINCREMENT';
+    const textType = 'TEXT NOT NULL';
+    const integerType = 'INTEGER NOT NULL';
     await db.execute('''
-      CREATE TABLE item ( 
-        ID $idType,
-        Name　$textType
-        Type $textType,
-        Cost $integerType,
-        Other $textType,
-        Date $textType,
-      )
-      '''
-    );
+CREATE TABLE item( 
+  ${GoodsField.id} $idType, 
+  ${GoodsField.name}　$textType, 
+  ${GoodsField.type} $textType, 
+  ${GoodsField.cost} $integerType, 
+  ${GoodsField.other} $textType, 
+  ${GoodsField.date} $textType 
+) 
+''');
   }
 
   Future<LastGoods> create(LastGoods Data) async {
