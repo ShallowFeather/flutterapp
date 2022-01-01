@@ -179,12 +179,12 @@ class Body extends State<body> {
         Padding(
           padding:
               const EdgeInsets.only(left: 15.0, right: 15.0, top: 5, bottom: 0),
-          child: TextField(
-            decoration: InputDecoration(
-              border: OutlineInputBorder(),
-              labelText: "類別",
-            ),
-          ),
+          child: new DropdownButton(
+            items: <DropdownMenuItem<String>>[
+
+            ], onChanged: (value) {  },
+          )
+          ,
         ),
         Padding(
           padding:

@@ -26,10 +26,10 @@ class UseDatabase {
     await db.execute('''
 CREATE TABLE item( 
   ${GoodsField.id} $idType, 
-  ${GoodsField.name}　$textType, 
+  ${GoodsField.name} $textType, 
   ${GoodsField.type} $textType, 
   ${GoodsField.cost} $integerType, 
-  ${GoodsField.other} $textType, 
+  ${GoodsField.other} TEXT, 
   ${GoodsField.date} $textType 
 ) 
 ''');
