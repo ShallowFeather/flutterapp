@@ -48,4 +48,15 @@ CREATE TABLE item(
     return result.map((json) => LastGoods.formMap(json)).toList();
   }
 
+  Future<List<String>> readAlltypes() async {
+    final db = await instance.database;
+    final result = await db.query(
+      'item',
+      distinct: true,
+      columns: ['type'],
+    );
+    return result.map((Map<String, dynamic> row){
+      return row['type'] as String;
+    }).toList();
+  }
 }

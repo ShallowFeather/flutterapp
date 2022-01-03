@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:count/data/GoodsClass.dart';
 import 'package:sqflite/sqflite.dart';
+import 'package:count/data/LoadData.dart';
 
 String LastData = "";
 TextEditingController namecontroller = new TextEditingController();
@@ -83,6 +84,7 @@ class Body extends State<body> {
       secondNum = 0;
       res = "";
     } else if (Val == 'AC') {
+      final a = UseDatabase.instance.readAlltypes();
       total = "";
       firstNum = 0;
       secondNum = 0;
@@ -177,14 +179,20 @@ class Body extends State<body> {
           ),
         ),
         Padding(
-          padding:
-              const EdgeInsets.only(left: 15.0, right: 15.0, top: 5, bottom: 0),
-          child: new DropdownButton(
-            items: <DropdownMenuItem<String>>[
-
-            ], onChanged: (value) {  },
-          )
-          ,
+          padding: const EdgeInsets.only(left: 15.0, right: 15.0, top: 5, bottom: 0),
+          child: FutureBuilder(
+            future: UseDatabase.instance.readAlltypes(),
+            builder: (BuildContext context, AsyncSnapshot<List<String>> snapshot) {
+              if(snapshot.hasData) {
+                return new DropdownButton<String>(
+                  items: <String>.map(String.fromCharCode)
+                )
+              }
+              else {
+                return CircularProgressIndicator();
+              }
+            },
+          ),
         ),
         Padding(
           padding:
