@@ -70,7 +70,8 @@ class body extends StatefulWidget {
 
 class Body extends State<body> {
   String history = '';
-  int firstNum = 0, secondNum = 0;
+  int firstNum = 0,
+      secondNum = 0;
   String res = '';
   String total = '';
   String operation = '';
@@ -90,13 +91,13 @@ class Body extends State<body> {
       secondNum = 0;
       res = "";
       history = "";
-    } else if(Val == '+/-'){
-      if(total[0] != '-') {
+    } else if (Val == '+/-') {
+      if (total[0] != '-') {
         res = '-' + total;
-      } else{
-          res = total.substring(1);
+      } else {
+        res = total.substring(1);
       }
-    } else if(Val == '<-') {
+    } else if (Val == '<-') {
       res = total.substring(0, total.length - 1);
     }
     else if (Val == '+' || Val == '-' || Val == 'X' || Val == '/') {
@@ -125,7 +126,7 @@ class Body extends State<body> {
     } else {
       res = int.parse(total + Val).toString();
     }
-    if(total.length > 10 || res.length > 10) {
+    if (total.length > 10 || res.length > 10) {
       total = "";
       res = "";
     }
@@ -169,7 +170,7 @@ class Body extends State<body> {
         ),
         Padding(
           padding:
-              const EdgeInsets.only(left: 15.0, right: 15.0, top: 5, bottom: 0),
+          const EdgeInsets.only(left: 15.0, right: 15.0, top: 5, bottom: 0),
           child: TextField(
             controller: othercontroller,
             decoration: InputDecoration(
@@ -179,24 +180,39 @@ class Body extends State<body> {
           ),
         ),
         Padding(
-          padding: const EdgeInsets.only(left: 15.0, right: 15.0, top: 5, bottom: 0),
-          child: FutureBuilder(
-            future: UseDatabase.instance.readAlltypes(),
-            builder: (BuildContext context, AsyncSnapshot<List<String>> snapshot) {
-              if(snapshot.hasData) {
-                return new DropdownButton<String>(
-                  items: <String>.map(String.fromCharCode)
-                )
-              }
-              else {
-                return CircularProgressIndicator();
-              }
-            },
-          ),
+            padding: const EdgeInsets.only(
+                left: 15.0, right: 15.0, top: 5, bottom: 0),
+            child: FutureBuilder<List<String>>(
+              future: UseDatabase.instance.readAlltypes(),
+              builder: (BuildContext context, AsyncSnapshot<List<String>> snapshot) {
+                if (snapshot.connectionState == ConnectionState.done && snapshot.hasData) {
+                  return DropdownButton<String>(
+                    onChanged: (String? newValue) {
+                      setState(() {
+                        newtypecontroller.text = newValue!;
+                      });
+                    },
+                    items: snapshot.data
+                        ?.map<DropdownMenuItem<String>>((String value) {
+                      return DropdownMenuItem<String>(
+                        value: value,
+                        child: Text(value),
+                      );
+                    }).toList(),
+                  );
+                }
+                else {
+                  return Center(
+                    child: CircularProgressIndicator()
+                  );
+                }
+              },
+
+            )
         ),
         Padding(
           padding:
-              const EdgeInsets.only(left: 15.0, right: 15.0, top: 5, bottom: 0),
+          const EdgeInsets.only(left: 15.0, right: 15.0, top: 5, bottom: 0),
           child: TextField(
             controller: newtypecontroller,
             decoration: InputDecoration(
