@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:count/data/GoodsClass.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:count/data/LoadData.dart';
+import 'dart:async';
 
 String LastData = "";
 TextEditingController namecontroller = new TextEditingController();
@@ -85,7 +86,7 @@ class Body extends State<body> {
       secondNum = 0;
       res = "";
     } else if (Val == 'AC') {
-      final a = UseDatabase.instance.readAlltypes();
+      final a = UseDatabase.instance.readAllitems();
       total = "";
       firstNum = 0;
       secondNum = 0;

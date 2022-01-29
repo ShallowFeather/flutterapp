@@ -27,7 +27,7 @@ class LastGoods {
     required this.other,
   });
 
-  static LastGoods formMap(Map<String, dynamic> json) => LastGoods(
+  static LastGoods fromMap(Map<String, dynamic> json) => LastGoods(
       id: json["id"] as int?,
       name: json["name"] as String,
       type: json["type"] as String,

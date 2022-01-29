@@ -45,7 +45,11 @@ CREATE TABLE item(
     final db = await instance.database;
     final orderBy = 'id';
     final result = await db.query("item", orderBy: orderBy);
-    return result.map((json) => LastGoods.formMap(json)).toList();
+    List<LastGoods> res = <LastGoods>[];
+    for(var i = 0; i < result.length; i++) {
+      res.add(LastGoods.fromMap(result[i]));
+    }
+    return res;
   }
 
   Future<List<String>> readAlltypes() async {
