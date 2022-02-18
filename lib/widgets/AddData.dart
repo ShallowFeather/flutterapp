@@ -43,7 +43,12 @@ class AddDataPage extends StatelessWidget {
             padding: EdgeInsets.only(right: 0.0),
             child: IconButton(
               onPressed: () async {
-                DateTime now = new DateTime.now();
+                String now = DateTime.now().year.toString() + "/"
+                    + DateTime.now().month.toString() + "/"
+                    + DateTime.now().day.toString() + "/ "
+                    + DateTime.now().hour.toString() + ":"
+                    + DateTime.now().minute.toString() + ":"
+                    + DateTime.now().second.toString();
                 LastGoods send = LastGoods(
                   name: namecontroller.text.toString(),
                   type: newtypecontroller.text.toString(),

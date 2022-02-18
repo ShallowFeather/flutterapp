@@ -46,7 +46,7 @@ CREATE TABLE item(
     final orderBy = 'id';
     final result = await db.query("item", orderBy: orderBy);
     List<LastGoods> res = <LastGoods>[];
-    for(var i = 0; i < result.length; i++) {
+    for(var i = result.length - 1; i >= 0; i--) {
       res.add(LastGoods.fromMap(result[i]));
     }
     return res;
