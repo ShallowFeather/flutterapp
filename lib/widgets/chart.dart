@@ -78,11 +78,16 @@ class _Chart extends State<Chart> {
   late List<TotalData> _chartData;
   Map mapOfAll = new Map<String, int>();
   @override
-  void initState() async {
-    _chartData = await getChartData();
+  void initState() {
     super.initState();
-  }
+    WidgetsBinding.instance?.addPostFrameCallback((_){
+      _asyncMethod();
+    });
 
+  }
+  _asyncMethod() async {
+    _chartData = await getChartData();
+  }
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
