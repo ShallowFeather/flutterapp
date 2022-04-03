@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:count/data/GoodsClass.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:count/data/LoadData.dart';
+import 'dart:async';
 
 String LastData = "";
 TextEditingController namecontroller = new TextEditingController();
@@ -42,7 +43,12 @@ class AddDataPage extends StatelessWidget {
             padding: EdgeInsets.only(right: 0.0),
             child: IconButton(
               onPressed: () async {
-                DateTime now = new DateTime.now();
+                String now = DateTime.now().year.toString() + "/"
+                    + DateTime.now().month.toString() + "/"
+                    + DateTime.now().day.toString() + "/ "
+                    + DateTime.now().hour.toString() + ":"
+                    + DateTime.now().minute.toString() + ":"
+                    + DateTime.now().second.toString();
                 LastGoods send = LastGoods(
                   name: namecontroller.text.toString(),
                   type: newtypecontroller.text.toString(),
@@ -84,7 +90,7 @@ class Body extends State<body> {
       secondNum = 0;
       res = "";
     } else if (Val == 'AC') {
-      final a = UseDatabase.instance.readAlltypes();
+      final a = UseDatabase.instance.readAllitems();
       total = "";
       firstNum = 0;
       secondNum = 0;

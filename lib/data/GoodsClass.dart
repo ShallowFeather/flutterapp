@@ -16,7 +16,7 @@ class LastGoods {
   final String name;
   final String type;
   final int cost;
-  final DateTime date;
+  final String date;
   final String other;
   const LastGoods({
     this.id,
@@ -27,12 +27,12 @@ class LastGoods {
     required this.other,
   });
 
-  static LastGoods formMap(Map<String, dynamic> json) => LastGoods(
+  static LastGoods fromMap(Map<String, dynamic> json) => LastGoods(
       id: json["id"] as int?,
       name: json["name"] as String,
       type: json["type"] as String,
       cost: json["cost"] as int,
-      date: DateTime.parse(json["date"] as String),
+      date: json["date"] as String,
       other: json["other"] as String);
 
   Map<String, dynamic> toMap() {
@@ -41,7 +41,7 @@ class LastGoods {
       'name': name,
       'type': type,
       'cost': cost,
-      'date': date.toIso8601String(),
+      'date': date,
       'other': other,
     };
   }
@@ -51,7 +51,7 @@ class LastGoods {
     String? name,
     String? type,
     int? cost,
-    DateTime? date,
+    String? date,
     String? other,
   }) =>
       LastGoods(
