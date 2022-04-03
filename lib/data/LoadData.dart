@@ -45,6 +45,7 @@ CREATE TABLE item(
     final db = await instance.database;
     final orderBy = 'id';
     final result = await db.query("item", orderBy: orderBy);
+    print(result.map((json) => LastGoods.formMap(json)).toList());
     return result.map((json) => LastGoods.formMap(json)).toList();
   }
 

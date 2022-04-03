@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
-
+import 'package:count/data/LoadData.dart';
 class BackChart extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -50,7 +50,9 @@ class BackChart extends StatelessWidget {
                     IconButton(
                       alignment: Alignment.centerRight,
                       padding: EdgeInsets.zero,
-                      onPressed: () {},
+                      onPressed: () {
+                        print(UseDatabase.instance.readAllitems());
+                      },
                       icon: Icon(Icons.apps),
                       color: Colors.white,
                     )
